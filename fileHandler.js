@@ -3,33 +3,36 @@ const isFileExist = require('./utils/checkFileExist');
 const cipher = require('./utils/cipher');
 const stream = require('stream');
 
-function streamHadler(inputFile, outputFile)
-const input_stream = inputFile
-  ? fs.createReadStream(inputFile, { encoding: 'utf8' })
-  : process.stdin;
+const inputFilePath = './files/input.txt';
 
-const transform_stream = new stream.Transform({
-  transform(chunk, encoding, callback) {
-    this.push(cipher(chunk.toString(), 1));
-    callback();
-  },
-});
+function inputFile(path) {
+  fs.readFile(path, 'utf8', (err, data) => {
+    if (err) throw err;
+    console.log(data);
+  });
+}
 
-const output_stream = outputFile
-  ? fs.createWriteStream(outputFile, { encoding: 'utf8' })
-  : process.stdout;
+inputFile(inputFilePath);
 
-input_stream.pipe(transform_stream).pipe(output_stream)
+// const input_stream = inputFile
+//   ? fs.createReadStream(inputFile, { encoding: 'utf8' })
+//   : process.stdin;
+
+// const transform_stream = new stream.Transform({
+//   transform(chunk, encoding, callback) {
+//     this.push(transform(chunk.toString(), 1));
+//     callback();
+//   },
+// });
+
+// const output_stream = outputFile
+//   ? fs.createWriteStream(outputFile, { encoding: 'utf8' })
+//   : process.stdout;
+
+// input_stream.pipe(transform_stream).pipe(output_stream)
 
 // console.log(isFileExist('./files/input.txt'));
 // console.log(isFileExist('./files/output.txt'));
-
-// function inputFile(path) {
-//   fs.readFile(path, 'utf8', (err, data) => {
-//     if (err) throw err;
-//     console.log(data);
-//   });
-// }
 
 // inputFile('./files/input.txt');
 
