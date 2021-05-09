@@ -1,18 +1,5 @@
 const { Transform } = require('stream');
 const cipher = require('./cipher');
-// function getShift(action, shift) {
-//   let shiftDirection = '';
-
-//   if (action === 'encode') {
-//     shiftDirection = '+';
-//   } else if (action === 'decode') {
-//     shiftDirection = '-';
-//   } else {
-//     process.stderr.write('Enter Encode or Decode to procced');
-//     process.exit(1);
-//   }
-//   return parseInt(shiftDirection + shift);
-// }
 
 class MyTransform extends Transform {
   constructor(shift, action) {
@@ -32,7 +19,7 @@ class MyTransform extends Transform {
 
     let shifter = parseInt(shiftDirection + this.shift);
 
-    const result = cipher(chunk.toString(), shifter);
+    this.push(cipher(chunk.toString(), shifter));
 
     callback();
   }

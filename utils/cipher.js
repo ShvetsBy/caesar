@@ -14,11 +14,14 @@ function cipher(msg, shift) {
 
     if (currentSymbol === ' ') {
       output += currentSymbol;
+
       continue;
     }
 
     const currentSymbolIndex = symbols.indexOf(currentSymbol);
+    // console.log(currentSymbolIndex);
     let newIndex = currentSymbolIndex + shift;
+
     if (newIndex > 26) {
       newIndex = newIndex - 26;
     }
@@ -30,7 +33,9 @@ function cipher(msg, shift) {
       output += msg[i];
       continue;
     }
-
+    if (msg[i] === '\n') {
+      continue;
+    }
     if (msg[i] === msg[i].toUpperCase()) {
       output += symbols[newIndex].toUpperCase();
     } else {
@@ -40,8 +45,5 @@ function cipher(msg, shift) {
 
   return output;
 }
-
-// const example = cipher('abc', 53);
-// console.log(example);
 
 module.exports = cipher;
