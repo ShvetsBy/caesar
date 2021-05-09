@@ -8,15 +8,17 @@ const action = {
 
 const symbols = alphabet.split('');
 
-function cipher(message, action, shift) {
-  const shifter = parseInt(action + shift);
+//function cipher(message, action, shift) {
+function cipher(message, shift) {
+  //   const shifter = parseInt(action + shift);
   let output = '';
   lowerCaseMsg = message.toLocaleLowerCase();
 
   for (let i = 0; i < lowerCaseMsg.length; i++) {
     const currentLetter = lowerCaseMsg[i];
     const currentIndex = alphabet.indexOf(currentLetter);
-    const newIndex = currentIndex + shifter;
+    // const newIndex = currentIndex + shifter;
+    const newIndex = currentIndex + shift;
 
     if (currentLetter === ' ') {
       output += currentLetter;
@@ -25,8 +27,9 @@ function cipher(message, action, shift) {
       output += alphabet[newIndex];
     }
   }
-  console.log(output);
+  //console.log(output);
   return output;
 }
 
-cipher(message, action.encode, shift);
+module.exports = cipher;
+// cipher(message, action.encode, shift);
