@@ -1,19 +1,20 @@
 const options = require('./commandLineHandler');
-const cipher = require('./cipher');
+const cipher = require('./utils/cipher');
+const checkAction = require('./utils/shiftDirection');
+const fs = require('fs');
 
-// const shifter = parseInt(options.action + options.shift);
+const shift = checkAction(options.action);
+const shifter = parseInt(shift + options.shift);
 
-// console.log(options.action);
+// const input = options.input
+//   ? fs.createReadStream(options.input, { encoding: 'utf8' })
+//   : process.stdin;
 
-let shiftDirection = '';
-if (options.action === 'encode') {
-  shiftDirection = '+';
-} else if (options.action === 'decode') {
-  shiftDirection = '-';
-} else {
-  console.log('Enter Encode or Decode to procced');
-}
+// const output = options.output
+//   ? fs.createWriteStream(options.output, { encoding: 'utf8' })
+//   : process.stdout;
 
-const shifter = parseInt(shiftDirection + options.shift);
+// console.log(input);
+// console.log(output);
 
-console.log(cipher('abc', shifter));
+console.log(cipher('Bcd 12 Abc', shifter));
