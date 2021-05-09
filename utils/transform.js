@@ -14,8 +14,14 @@ const cipher = require('./cipher');
 //   return parseInt(shiftDirection + shift);
 // }
 
-const myTransform = new Transform({
-  transform(chunk, encoding, callback) {
+class MyTransform extends Transform {
+  constructor(shift, action) {
+    super();
+    this.shift = shift;
+    this.action = action;
+  }
+
+  _transform(chunk, encoding, callback) {
     let shiftDirection = '';
 
     if (this.action === 'encode') {
@@ -23,16 +29,13 @@ const myTransform = new Transform({
     } else if (this.action === 'decode') {
       shiftDirection = '-';
     }
-    // else {
-    //     process.stderr.write('Enter Encode or Decode to procced');
-    //     process.exit(1);
-    //   }
-    let shifter = parseInt(shiftDirection + shift);
 
-    const result = cipher(chunk, shifter);
+    let shifter = parseInt(shiftDirection + this.shift);
+
+    const result = cipher(chunk.toString(), shifter);
 
     callback();
-  },
-});
+  }
+}
 
-module.export = myTransform;
+module.exports = MyTransform;

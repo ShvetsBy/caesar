@@ -1,7 +1,7 @@
 const options = require('./commandLineHandler');
 const checkAction = require('./utils/shiftDirection');
 const fs = require('fs');
-const myTransform = require('./utils/transform');
+const MyTransform = require('./utils/transform');
 
 const shift = checkAction(options.action);
 const shifter = parseInt(shift + options.shift);
@@ -37,7 +37,12 @@ function getOutPut(outPutFile) {
 console.log(options.shift, options.action);
 
 const readStream = getInput(options.input);
-const transformStream = myTransform(options.shift, options.action);
+const transformStream = new MyTransform(options.shift, options.action);
 const writeStream = getOutPut(options.outPutFile);
 
 readStream.pipe(transformStream).pipe(writeStream);
+
+//const input = process.stdin;
+//const output = process.stdout;
+
+//input.pipe(new MyTransformer()).pipe(output);
